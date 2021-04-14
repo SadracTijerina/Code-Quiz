@@ -4,6 +4,14 @@ var viewScore = document.getElementById("viewScore");
 var introduction = document.getElementById("introduction");
 var question = document.getElementById("question");
 var answers = document.getElementById("answers");
+var userResult = document.getElementById("user-result");
+var currentQuestion = 0;
+var timeLeft = 50;
+var answer1;
+var answer2;
+var answer3;
+var answer4;
+var points = 0;
 
 var questionsAndAnswers = [
   {
@@ -12,12 +20,13 @@ var questionsAndAnswers = [
     choices: ["strings", "booleans", "numbers", "alerts"],
   },
   {
-    title: "The condition in an if / else statement is enclosed within ____.",
+    question:
+      "The condition in an if / else statement is enclosed within ____.",
     answer: "parentheses",
     choices: ["quotes", "curly brackets", "parentheses", "square brackets"],
   },
   {
-    title: "Arrays in Javascript can be used to store ____.",
+    question: "Arrays in Javascript can be used to store ____.",
     answer: "all of the above",
     choices: [
       "numbers and strings",
@@ -27,20 +36,18 @@ var questionsAndAnswers = [
     ],
   },
   {
-    title:
+    question:
       "String values must be enclosed within ____ when being assigned to variables.",
     answer: "quotes",
     choices: ["commas", "curly brackets", "quotes", "parenthesis"],
   },
   {
-    title:
+    question:
       "A very useful tool for used during development and debugging for printing content to the debugger is:",
     answer: "console log",
     choices: ["Javascript", "terminal / bash", "for loops", "console log"],
   },
 ];
-
-var currentQuestion = 0;
 
 function startQuiz() {
   introduction.style.display = "none";
@@ -52,8 +59,6 @@ function startQuiz() {
 
 // Timer that counts down from 60
 function countdown() {
-  var timeLeft = 50;
-
   // Use the `setInterval()` method to call a function to be executed every 1000 milliseconds
   var timeInterval = setInterval(function () {
     // As long as the `timeLeft` is greater than 1
@@ -77,17 +82,17 @@ function displayQuestion() {
   //debugger;
   question.textContent = questionsAndAnswers[currentQuestion].question;
 
-  let answer1 =
-    "<button class='btn btn-primary btn-lg btn-block answerChoice'>" +
+  answer1 =
+    "<button id='choice1' class='btn btn-primary btn-lg btn-block answerChoice'>" +
     questionsAndAnswers[currentQuestion].choices[0];
-  let answer2 =
-    "<button class='btn btn-primary btn-lg btn-block answerChoice'>" +
+  answer2 =
+    "<button id='choice2' class='btn btn-primary btn-lg btn-block answerChoice'>" +
     questionsAndAnswers[currentQuestion].choices[1];
-  let answer3 =
-    "<button class='btn btn-primary btn-lg btn-block answerChoice'>" +
+  answer3 =
+    "<button id='choice3' class='btn btn-primary btn-lg btn-block answerChoice'>" +
     questionsAndAnswers[currentQuestion].choices[2];
-  let answer4 =
-    "<button class='btn btn-primary btn-lg btn-block answerChoice'>" +
+  answer4 =
+    "<button id='choice4' class='btn btn-primary btn-lg btn-block answerChoice'>" +
     questionsAndAnswers[currentQuestion].choices[3];
 
   answers.innerHTML =
@@ -102,4 +107,60 @@ function displayQuestion() {
     "</li></ul>";
 }
 
+function checkAnswer(event) {
+  event.preventDefault();
+  var button = document.getElementById(event.target.id);
+  if (
+    answer1.includes(questionsAndAnswers[currentQuestion].answer) &&
+    button.id === "choice1"
+  ) {
+    userResult.textContent = "CORRECT!";
+    currentQuestion++;
+    points += 10;
+    displayQuestion();
+  } else if (
+    answer2.includes(questionsAndAnswers[currentQuestion].answer) &&
+    button.id === "choice2"
+  ) {
+    userResult.textContent = "CORRECT!";
+    currentQuestion++;
+    points += 10;
+    displayQuestion();
+  } else if (
+    answer3.includes(questionsAndAnswers[currentQuestion].answer) &&
+    button.id === "choice3"
+  ) {
+    userResult.textContent = "CORRECT!";
+    currentQuestion++;
+    points += 10;
+    displayQuestion();
+  } else if (
+    answer4.includes(questionsAndAnswers[currentQuestion].answer) &&
+    button.id === "choice4"
+  ) {
+    userResult.textContent = "CORRECT!";
+    currentQuestion++;
+    points += 10;
+    displayQuestion();
+  } else {
+    userResult.textContent = "WRONG!";
+    currentQuestion++;
+    timeLeft -= 10;
+    points -= 6;
+    displayQuestion();
+  }
+
+  //saveScore();
+}
+function viewScores() {}
+
+function addScore() {
+  timer.innerHTML = "";
+  question.textContent("All done!");
+  introduction.textContent("Your final score is: " + points);
+  answer.innerHTML = "<h3>Enter initials</h3>";
+}
+
 startBtn.addEventListener("click", startQuiz);
+answers.addEventListener("click", checkAnswer);
+viewScore.addEventListener("click", viewScores);
