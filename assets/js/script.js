@@ -62,16 +62,18 @@ function countdown() {
   // Use the `setInterval()` method to call a function to be executed every 1000 milliseconds
   var timeInterval = setInterval(function () {
     // As long as the `timeLeft` is greater than 1
-    if (timeLeft >= 1) {
-      timer.textContent = "Time: " + timeLeft;
-      timeLeft--;
-    } else {
+
+    if (timeLeft < 0 || currentQuestion == 5) {
       // Once `timeLeft` gets to 0, set `timerEl` to an empty string
       timer.textContent = "";
       // Use `clearInterval()` to stop the timer
       clearInterval(timeInterval);
 
       // End game function here
+      addScore();
+    } else if (timeLeft >= 1) {
+      timer.textContent = "Time: " + timeLeft;
+      timeLeft--;
     }
   }, 1000);
 
@@ -149,16 +151,23 @@ function checkAnswer(event) {
     points -= 6;
     displayQuestion();
   }
-
-  //saveScore();
 }
 function viewScores() {}
 
 function addScore() {
   timer.innerHTML = "";
-  question.textContent("All done!");
-  introduction.textContent("Your final score is: " + points);
-  answer.innerHTML = "<h3>Enter initials</h3>";
+  question.textContent = "All done!";
+  introduction.textContent = "Your final score is: " + points;
+  introduction.style.display = "block";
+  userResult.textContent = "";
+
+  var initials =
+    '<input id ="initials" type="text" name="initials" placeholder="" />';
+
+  var submitBtn = "<button id='submit' class='btn btn-primary >";
+
+  answers.innerHTML =
+    "<h3>Enter initials" + initials + "</h3>" + submitBtn + "SUBMIT </button>";
 }
 
 startBtn.addEventListener("click", startQuiz);
