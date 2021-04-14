@@ -5,3 +5,12 @@
 #viewScore {
   text-decoration: none;
 }
+
+.answerChoice {
+  margin: 10px;
+  width: 100%;
+}
+
+.no-bullets {
+  list-style-type: none;
+}

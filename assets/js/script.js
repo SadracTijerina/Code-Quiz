@@ -1,9 +1,9 @@
 var startBtn = document.getElementById("startQuizBtn");
 var timer = document.getElementById("timer");
 var viewScore = document.getElementById("viewScore");
-var orderedList = document.getElementById("list");
 var introduction = document.getElementById("introduction");
 var question = document.getElementById("question");
+var answers = document.getElementById("answers");
 
 var questionsAndAnswers = [
   {
@@ -77,17 +77,29 @@ function displayQuestion() {
   //debugger;
   question.textContent = questionsAndAnswers[currentQuestion].question;
 
-  for (i = 0; i < questionsAndAnswers[currentQuestion].choices.length; i++) {
-    let listItemEl = document.createElement("li");
-    listItemEl.innerHTML =
-      "<button class = 'btn btn-primary>" +
-      questionsAndAnswers[currentQuestion].choices[i] +
-      "</button>";
+  let answer1 =
+    "<button class='btn btn-primary btn-lg btn-block answerChoice'>" +
+    questionsAndAnswers[currentQuestion].choices[0];
+  let answer2 =
+    "<button class='btn btn-primary btn-lg btn-block answerChoice'>" +
+    questionsAndAnswers[currentQuestion].choices[1];
+  let answer3 =
+    "<button class='btn btn-primary btn-lg btn-block answerChoice'>" +
+    questionsAndAnswers[currentQuestion].choices[2];
+  let answer4 =
+    "<button class='btn btn-primary btn-lg btn-block answerChoice'>" +
+    questionsAndAnswers[currentQuestion].choices[3];
 
-    console.log(listItemEl);
-
-    orderedList.append(listItemEl);
-  }
+  answers.innerHTML =
+    "<ul class='no-bullets'><li>" +
+    answer1 +
+    "</li><li>" +
+    answer2 +
+    "</li><li>" +
+    answer3 +
+    "</li><li>" +
+    answer4 +
+    "</li></ul>";
 }
 
 startBtn.addEventListener("click", startQuiz);
